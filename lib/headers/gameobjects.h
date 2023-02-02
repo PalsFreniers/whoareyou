@@ -20,14 +20,14 @@ public:
 
     void update();
     bool checkCollide(Gameobject& other);
-    void draw(sf::RenderWindow window);
+    void draw(sf::RenderWindow& window);
     void move(sf::Vector2f vel);
 
     // events
     void setCollideEvent(std::function<void(Gameobject&, Gameobject&)> onCollideEvent);
     void setDrawEvent(std::function<void(Gameobject&, sf::RenderWindow)> onDrawEvent);
     void setUpdateEvent(std::function<void(Gameobject&)> onUpdateEvent);
-    void setMoveEvent(std::function<void(Gameobject&, sf::Vector2f)> onMove);
+    void setMoveEvent(std::function<void(Gameobject&, sf::Vector2f)> onMoveEvent);
     
     void setRectangleColor(sf::Color c); 
     void setAnimation(Animation anim);
