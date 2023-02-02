@@ -25,7 +25,7 @@ public:
 
     // events
     void setCollideEvent(std::function<void(Gameobject&, Gameobject&)> onCollideEvent);
-    void setDrawEvent(std::function<void(Gameobject&, sf::RenderWindow)> onDrawEvent);
+    void setDrawEvent(std::function<void(Gameobject&, sf::RenderWindow&)> onDrawEvent);
     void setUpdateEvent(std::function<void(Gameobject&)> onUpdateEvent);
     void setMoveEvent(std::function<void(Gameobject&, sf::Vector2f)> onMoveEvent);
     
@@ -46,6 +46,6 @@ protected:
     
     std::function<void(Gameobject&)> onUpdate;
     std::function<void(Gameobject&, Gameobject&)> onCollide;
-    std::function<void(Gameobject&, sf::RenderWindow)> onDraw;
+    std::function<void(Gameobject&, sf::RenderWindow&)> onDraw;
     std::function<void(Gameobject&, sf::Vector2f)> onMove;
 };

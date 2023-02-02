@@ -14,7 +14,7 @@ Gameobject::Gameobject(sf::Vector2f position, sf::Vector2f size, std::string nam
 
 bool Gameobject::setTexture(std::string TexturePath) {
     hasTexture = m_texture.loadFromFile(TexturePath);
-    hasTexture = m_Sprite.setTexture(m_texture);
+    m_Sprite.setTexture(m_texture);
     return hasTexture;
 }
 
@@ -63,7 +63,7 @@ void Gameobject::setUpdateEvent(std::function<void (Gameobject &)> onUpdateEvent
     hasUpdateEvent = true;
 }
 
-void Gameobject::setDrawEvent(std::function<void (Gameobject &, sf::RenderWindow)> onDrawEvent) {
+void Gameobject::setDrawEvent(std::function<void (Gameobject &, sf::RenderWindow&)> onDrawEvent) {
     onDraw = onDrawEvent;
     hasDrawEvent = true;
 }
