@@ -14,6 +14,7 @@ Gameobject::Gameobject(sf::Vector2f position, sf::Vector2f size, std::string nam
 
 bool Gameobject::setTexture(std::string TexturePath) {
     hasTexture = m_texture.loadFromFile(TexturePath);
+    hasTexture = m_Sprite.setTexture(m_texture);
     return hasTexture;
 }
 
