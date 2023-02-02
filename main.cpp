@@ -11,7 +11,16 @@ void Game::init() {
 }
 
 void Game::event() {
-    ;
+    switch (m_event.type) {
+        case Event::Closed:
+            setClosed();
+            break;
+        case Event::KeyPressed:
+            switch (m_event.key.code) {
+                case Keyboard::Down:
+                    g1.move(Vector2f(0, 5));
+            }
+    }
 }
 
 void Game::everUpdate() {

@@ -10,6 +10,8 @@ Gameobject::Gameobject(sf::Vector2f position, sf::Vector2f size, std::string nam
 {
     m_collider.setPosition(m_position);
     m_collider.setSize(m_size);
+    m_Sprite.setOrigin(m_position.x/2, m_position.y/2);
+    m_collider.setOrigin(m_position.x/2, m_position.y/2);
     isVisible = true;
 }
 
@@ -25,6 +27,7 @@ void Gameobject::setVisible(bool visible) {
 
 void Gameobject::setAnimation(Animation anim) {
     m_anim = anim;
+    m_anim.setPosition(m_position);
     hasAnimation = true;
 }
 
