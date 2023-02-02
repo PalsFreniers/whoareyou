@@ -10,6 +10,7 @@ Gameobject::Gameobject(sf::Vector2f position, sf::Vector2f size, std::string nam
 {
     m_collider.setPosition(m_position);
     m_collider.setSize(m_size);
+    isVisible = true;
 }
 
 bool Gameobject::setTexture(std::string TexturePath) {
@@ -29,7 +30,7 @@ void Gameobject::setAnimation(Animation anim) {
 
 void Gameobject::update() {
     if (hasUpdateEvent) onUpdate(*this);
-    if (hasAnimation) { m_anim.update(); m_anim.setPosition(m_position);}
+    if (hasAnimation) m_anim.update();
 }
 
 bool Gameobject::checkCollide(Gameobject &other) {
@@ -47,15 +48,18 @@ void Gameobject::setRectangleColor(sf::Color c) {
 
 void Gameobject::draw(sf::RenderWindow &window) {
     if(hasDrawEvent) onDraw(*this, window);
-    if(hasAnimation) m_anim.draw(window);
-    else if(hasTexture) window.draw(m_Sprite);
-    else window.draw(m_collider);
+    if(isVisible) {
+	if(hasAnimation) m_anim.draw(window);
+	else if(hasTexture) window.draw(m_Sprite);
+	else window.draw(m_collider);
+    }
 }
 
 void Gameobject::move(sf::Vector2f vel) {
     if(hasMoveEvent) onMove(*this, vel);
     m_position.x += vel.x; m_position.y += vel.y;
     m_collider.setPosition(m_position);
+    m_anim.setPosition(m_position);
 }
 
 void Gameobject::setUpdateEvent(std::function<void (Gameobject &)> onUpdateEvent) {

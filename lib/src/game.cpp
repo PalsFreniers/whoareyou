@@ -122,6 +122,7 @@ bool Game::isOpen() {
 
 void Game::run() {
     init();
+    m_window.setFramerateLimit(60);
     while (isOpen()) {
         while(m_window.pollEvent(m_event)) event();
         m_window.clear(m_background);

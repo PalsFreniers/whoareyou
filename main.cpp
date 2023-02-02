@@ -6,13 +6,8 @@ using namespace sf;
 
 Gameobject g1(Vector2f(30, 30), Vector2f(20, 20), "TestObject");
 
-void g1OnUpdate(Gameobject& obj) {
-    obj.move(Vector2f(1, 0));
-}
-
 void Game::init() {
-    g1.setUpdateEvent(g1OnUpdate);
-    g1.setRectangleColor(Color::Blue);
+    g1.setAnimation(Animation(8, 20, "placeholder.png", true, true));
 }
 
 void Game::event() {
