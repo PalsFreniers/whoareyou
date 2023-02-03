@@ -10,8 +10,8 @@ Gameobject::Gameobject(sf::Vector2f position, sf::Vector2f size, std::string nam
 {
     m_collider.setPosition(m_position);
     m_collider.setSize(m_size);
-    m_Sprite.setOrigin(m_position.x/2, m_position.y/2);
-    m_collider.setOrigin(m_position.x/2, m_position.y/2);
+    m_Sprite.setOrigin(m_size.x/2, m_size.y/2);
+    m_collider.setOrigin(m_size.x/2, m_size.y/2);
     isVisible = true;
 }
 
@@ -37,11 +37,11 @@ void Gameobject::update() {
 }
 
 bool Gameobject::checkCollide(Gameobject &other) {
-    if (hasCollideEvent) onCollide(*this, other);
     if (m_position.x + m_size.x/2 < other.getPosition().x - other.getSize().x/2) return 0;
     if (m_position.x - m_size.x/2 > other.getPosition().x + other.getSize().x/2) return 0;
     if (m_position.y + m_size.y/2 < other.getPosition().y - other.getSize().y/2) return 0;
     if (m_position.y - m_size.y/2 > other.getPosition().y + other.getSize().y/2) return 0;
+    if (hasCollideEvent) onCollide(*this, other);
     return 1;
 }
 

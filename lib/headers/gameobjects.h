@@ -9,6 +9,7 @@
 #include <functional>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Graphics.hpp>
+#include <string>
 #include "../headers/animation.h"
 
 class Gameobject {
@@ -24,28 +25,37 @@ public:
     void move(sf::Vector2f vel);
 
     // events
-    void setCollideEvent(std::function<void(Gameobject&, Gameobject&)> onCollideEvent);
-    void setDrawEvent(std::function<void(Gameobject&, sf::RenderWindow&)> onDrawEvent);
-    void setUpdateEvent(std::function<void(Gameobject&)> onUpdateEvent);
-    void setMoveEvent(std::function<void(Gameobject&, sf::Vector2f)> onMoveEvent);
+    void setCollideEvent(std::function<void(Gameobject&, Gameobject&)>      onCollideEvent);
+    void setDrawEvent(std::function<void(Gameobject&, sf::RenderWindow&)>   onDrawEvent);
+    void setUpdateEvent(std::function<void(Gameobject&)>                    onUpdateEvent);
+    void setMoveEvent(std::function<void(Gameobject&, sf::Vector2f)>        onMoveEvent);
     
     void setRectangleColor(sf::Color c); 
     void setAnimation(Animation anim);
 
     inline sf::Vector2f getPosition() { return m_position; }
-    inline sf::Vector2f getSize() { return m_size; }
-protected:
-    std::string m_name;
-    sf::Vector2f m_position, m_size;
-    sf::RectangleShape m_collider;
-    sf::Texture m_texture;
-    sf::Sprite m_Sprite;
-    Animation m_anim;
+    inline sf::Vector2f getSize()     { return m_size; }
+    inline std::string  getName()     { return m_name; }
 
-    bool hasTexture, hasAnimation, isVisible, hasCollideEvent, hasDrawEvent, hasUpdateEvent, hasMoveEvent;
+protected:
+    std::string          m_name;
+    sf::Vector2f         m_position,
+	                 m_size;
+    sf::RectangleShape   m_collider;
+    sf::Texture          m_texture;
+    sf::Sprite           m_Sprite;
+    Animation            m_anim;
+
+    bool hasTexture,
+	 hasAnimation,
+	 isVisible,
+	 hasCollideEvent,
+	 hasDrawEvent,
+	 hasUpdateEvent,
+	 hasMoveEvent;
     
-    std::function<void(Gameobject&)> onUpdate;
-    std::function<void(Gameobject&, Gameobject&)> onCollide;
-    std::function<void(Gameobject&, sf::RenderWindow&)> onDraw;
-    std::function<void(Gameobject&, sf::Vector2f)> onMove;
+    std::function<void(Gameobject&)>                     onUpdate;
+    std::function<void(Gameobject&, Gameobject&)>        onCollide;
+    std::function<void(Gameobject&, sf::RenderWindow&)>  onDraw;
+    std::function<void(Gameobject&, sf::Vector2f)>       onMove;
 };
