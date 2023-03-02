@@ -1,4 +1,6 @@
 #include "../headers/game.h"
+#include <SFML/Window/VideoMode.hpp>
+#include <SFML/Window/WindowStyle.hpp>
 
 Game::Game(int width, int height, std::string title, bool isFullscreen)
     : m_size(width, height),
@@ -62,6 +64,7 @@ std::string Game::getTitle() {
 //set function
 
 void Game::setFullScreen() {
+    (&m_window)->create(sf::VideoMode(m_window.getSize().x, m_window.getSize().y), m_title, sf::Style::Fullscreen);
     m_signals |= FULLSCREEN;
 }
 
@@ -93,6 +96,11 @@ void Game::unsetVisible() {
 
 void Game::unsetPaused() {
     m_signals &= ~(PAUSED);
+}
+
+void Game::unsetFullscreen() {
+    (&m_window)->create(sf::VideoMode(m_window.getSize().x, m_window.getSize().y), m_title, sf::Style::Fullscreen);
+    m_signals &= ~(FULLSCREEN);
 }
 
 //is functions

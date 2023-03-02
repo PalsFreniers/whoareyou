@@ -50,6 +50,7 @@ public:
     //unset functions
     void unsetVisible();
     void unsetPaused();
+    void unsetFullscreen();
 
     //is functions
     bool isFullscreen();

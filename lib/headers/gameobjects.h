@@ -19,10 +19,10 @@ public:
     bool setTexture(std::string TexturePath);
     void setVisible(bool visible);
 
-    void update();
-    bool checkCollide(Gameobject& other);
-    void draw(sf::RenderWindow& window);
-    void move(sf::Vector2f vel);
+    virtual void update();
+    virtual bool checkCollide(Gameobject& other);
+    virtual void draw(sf::RenderWindow& window);
+    virtual void move(sf::Vector2f vel);
 
     // events
     void setCollideEvent(std::function<void(Gameobject&, Gameobject&)>      onCollideEvent);
