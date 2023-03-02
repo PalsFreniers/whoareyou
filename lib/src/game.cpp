@@ -101,7 +101,7 @@ void Game::unsetPaused() {
 
 void Game::unsetFullscreen() {
     (&m_window)->create(sf::VideoMode(m_window.getSize().x, m_window.getSize().y), m_title, sf::Style::Default);
-    m_window.setFramerateLimit(60)
+    m_window.setFramerateLimit(60);
     m_signals &= ~(FULLSCREEN);
 }
 
