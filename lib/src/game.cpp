@@ -16,7 +16,20 @@ Game::~Game() {
     m_window.close();
 }
 
-//setters
+void Game::run() {
+    init();
+    m_window.setFramerateLimit(60);
+    while (isOpen()) {
+        while(m_window.pollEvent(m_event)) event();
+        m_window.clear(m_background);
+        everUpdate();
+        if(!isPaused()) pauseUpdate();
+        draw();
+        m_window.display();
+    }
+}
+
+/////////////////setters///////////////////////
 
 void Game::setSize(int width, int height) {
     m_size = sf::Vector2u(width, height);
@@ -130,15 +143,4 @@ bool Game::isOpen() {
     return !(m_signals & CLOSED);
 }
 
-void Game::run() {
-    init();
-    m_window.setFramerateLimit(60);
-    while (isOpen()) {
-        while(m_window.pollEvent(m_event)) event();
-        m_window.clear(m_background);
-        everUpdate();
-        if(!isPaused()) pauseUpdate();
-        draw();
-        m_window.display();
-    }
-}
+

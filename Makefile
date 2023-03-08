@@ -8,6 +8,10 @@ LIBS=-lsfml-graphics -lsfml-window -lsfml-system
 
 all: main debug
 
+run: main
+	@echo "Running program"
+	@./main
+
 main: main.cpp
 	@echo "building release version of the program"
 	@$(CC) -o $(BUILD) main.cpp $(SOURCES) $(CXXFLAGS) $(LIBS)
