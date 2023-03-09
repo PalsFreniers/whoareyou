@@ -91,7 +91,7 @@ public:
 protected:
     std::string          m_name;
     sf::Vector2f         m_position,
-	                 m_size;
+	                       m_size;
     sf::RectangleShape   m_collider;
     sf::Texture          m_texture;
     sf::Sprite           m_Sprite;
