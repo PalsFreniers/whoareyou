@@ -17,9 +17,13 @@ Button::~Button() {
     ;
 }
 
-void Button::tryClickEvent(sf::Vector2f MousePos) {
+bool Button::tryClickEvent(sf::Vector2f MousePos) {
     Gameobject tmp(MousePos, sf::Vector2f(2, 2), "Mouse Pointer");
-    if(isActive() && hasClickEvent() && checkCollide(tmp)) onClick(*this);
+    if(isActive() && hasClickEvent() && checkCollide(tmp)) {
+	onClick(*this);
+	return true;
+    }
+    return false;
 }
 
 void Button::setClickEvent(std::function<void(Button&)> onClickEvent) {

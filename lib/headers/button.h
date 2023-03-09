@@ -12,7 +12,7 @@ public:
     Button(sf::Vector2f position, sf::Vector2f size, std::string name, std::string fontPath, int font_size = 12, std::string textString = "", sf::Vector2f textOffset = sf::Vector2f(0, 0), sf::Color textColor = sf::Color::White);
     ~Button();
 
-    void tryClickEvent(sf::Vector2f MousePos);
+    bool tryClickEvent(sf::Vector2f MousePos);
 
     void setClickEvent(std::function<void(Button&)> onClickEvent);
 
