@@ -1,4 +1,4 @@
-#include "../headers/gameobjects.h"
+#include "../headers/gameobject.h"
 
 Gameobject::Gameobject()
     : m_name("")
@@ -81,6 +81,7 @@ void Gameobject::setSize(sf::Vector2f size) {
 
 void Gameobject::setRectangle(sf::RectangleShape collider) {
     m_collider = collider;
+    m_collider.setOrigin(sf::Vector2f(m_position.x/2, m_position.y/2));
     setPosition(m_collider.getPosition());
     setSize(m_collider.getSize());
 }

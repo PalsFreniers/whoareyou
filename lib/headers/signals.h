@@ -22,3 +22,7 @@
 //Labels signals
 #define BACKGROUND        (1 << 7)
 #define TEXT_CHANGE_EVENT (1 << 8)
+
+//buttons signals
+#define ACTIVE            (1 << 9)
+#define ON_CLICK_EVENT    (1 << 10)

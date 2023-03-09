@@ -1,4 +1,4 @@
-#include "../headers/labels.h"
+#include "../headers/label.h"
 
 Label::Label()
     : Gameobject()

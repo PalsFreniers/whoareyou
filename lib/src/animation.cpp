@@ -1,7 +1,6 @@
 
 
 //I didn't use the constants from "Global.hpp" to make this class more universal.
-#include <SFML/Graphics.hpp>
 #include "../headers/animation.h"
 
 Animation::Animation(Animation& other) 

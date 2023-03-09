@@ -4,7 +4,7 @@
 #include <iostream>
 #include <functional>
 #include <string>
-#include "gameobjects.h"
+#include "gameobject.h"
 
 #define POINT_PIXEL_FACTOR 1.33 
 #define PIXEL_POINT_FACTOR 0.75
@@ -15,7 +15,7 @@ public:
     Label(sf::Vector2f position, sf::Vector2f size, std::string name, std::string fontPath, int font_size = 12, std::string textString = "", sf::Vector2f textOffset = sf::Vector2f(0, 0), sf::Color textColor = sf::Color::White);
     ~Label();
 
-    virtual void draw(sf::RenderWindow& window) override;
+    void draw(sf::RenderWindow& window) override;
     
     void setFontSize(int            point);
     void setTextString(std::string  textString);
