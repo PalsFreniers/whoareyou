@@ -2,9 +2,18 @@
 
 //I didn't use the constants from "Global.hpp" to make this class more universal.
 #include <SFML/Graphics.hpp>
-
-
 #include "../headers/animation.h"
+
+Animation::Animation(Animation& other) 
+    : animation_iterator(other.animation_iterator)
+    , animation_speed(other.animation_speed)
+    , current_frame(other.current_frame)
+    , frame_width(other.frame_width)
+    , total_frames(other.total_frames)
+    , isPlaying(other.isPlaying)
+    , position(other.position)
+    , sprite(other.sprite)
+    , texture(other.texture) {}
 
 Animation::Animation(unsigned short i_animation_speed, unsigned short i_frame_width, const std::string& i_texture_location, bool play, bool loop) :
     animation_iterator(0),
