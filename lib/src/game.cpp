@@ -1,12 +1,10 @@
 #include "../headers/game.h"
-#include <SFML/Window/VideoMode.hpp>
-#include <SFML/Window/WindowStyle.hpp>
 
 Game::Game(int width, int height, std::string title, bool isFullscreen)
     : m_size(width, height),
-      m_position(0, 0),
-      m_title(title),
-      m_signals(0)
+    m_position(0, 0),
+    m_title(title),
+    m_signals(0)
 {
     if(isFullscreen) setFullScreen();
     m_window.create(sf::VideoMode(width, height), title, (isFullscreen ? sf::Style::Fullscreen : sf::Style::Default));
@@ -17,19 +15,21 @@ Game::~Game() {
 }
 
 void Game::run() {
+    setVisible();
+    setClosable();
+    setResizable();
     init();
-    m_window.setFramerateLimit(60);
     while (isOpen()) {
-        while(m_window.pollEvent(m_event)) event();
         m_window.clear(m_background);
-        everUpdate();
+        while(m_window.pollEvent(m_event)) event();
         if(!isPaused()) pauseUpdate();
+        everUpdate();
         draw();
         m_window.display();
     }
 }
 
-/////////////////setters///////////////////////
+/////////Setters/////////
 
 void Game::setSize(int width, int height) {
     m_size = sf::Vector2u(width, height);
@@ -57,8 +57,14 @@ void Game::setTitle(std::string title) {
 }
 
 void Game::setSignal(char signals) {
-    m_signals |= signals;
+    m_signals = signals;
 }
+
+void Game::setBackground(sf::Color background) {
+    m_background = background;
+}
+
+/////////////////////////
 
 //getters
 
@@ -73,49 +79,72 @@ sf::Vector2i Game::getPosition() {
 std::string Game::getTitle() {
     return m_title;
 }
+char Game::getSignals() {
+    return m_signals;
+}
 
 //set function
 
 void Game::setFullScreen() {
-    (&m_window)->create(sf::VideoMode(m_size.x, m_size.y), m_title, sf::Style::Fullscreen);
-    m_window.setFramerateLimit(60);
     m_signals |= FULLSCREEN;
+    reloadWindow();
 }
 
 void Game::setVisible() {
     m_signals |= VISIBLE;
+    reloadWindow();
 }
 
 void Game::setPaused() {
     m_signals |= PAUSED;
+    reloadWindow();
 }
 
 void Game::setClosable() {
     m_signals |= CLOSABLE;
+    reloadWindow();
 }
 
 void Game::setResizable() {
     m_signals |= RESIZABLE;
+    reloadWindow();
 }
 
 void Game::setClosed() {
     m_signals |= CLOSED;
+    reloadWindow();
 }
 
 //unset functions
 
+void Game::unsetFullscreen() {
+    m_signals &= ~(FULLSCREEN);
+    reloadWindow();
+}
+
 void Game::unsetVisible() {
     m_signals &= ~(VISIBLE);
+    reloadWindow();
 }
 
 void Game::unsetPaused() {
     m_signals &= ~(PAUSED);
+    reloadWindow();
 }
 
-void Game::unsetFullscreen() {
-    (&m_window)->create(sf::VideoMode(m_size.x, m_size.y), m_title, sf::Style::Default);
-    m_window.setFramerateLimit(60);
-    m_signals &= ~(FULLSCREEN);
+void Game::unsetClosable() {
+    m_signals &= ~(CLOSABLE);
+    reloadWindow();
+}
+
+void Game::unsetResizable() {
+    m_signals &= ~(RESIZABLE);
+    reloadWindow();
+}
+
+void Game::unsetClosed() {
+    m_signals &= ~(CLOSED);
+    reloadWindow();
 }
 
 //is functions
@@ -143,4 +172,13 @@ bool Game::isOpen() {
     return !(m_signals & CLOSED);
 }
 
+void Game::reloadWindow() {
+    sf::Uint32 style = sf::Style::None;
+    if(isFullscreen()) style = sf::Style::Fullscreen;
+    else style = (isClosable() ? sf::Style::Close : 0) | (isResizable() ? sf::Style::Resize : 0) | sf::Style::Titlebar;
+    if(!isOpen()) m_window.close();
+    else m_window.create(sf::VideoMode(m_size.x, m_size.y), m_title, style);
+    m_window.setFramerateLimit(60);
+    m_window.setVisible(isVisible());
+}
 

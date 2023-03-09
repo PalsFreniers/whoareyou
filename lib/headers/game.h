@@ -1,13 +1,11 @@
 #pragma once
 
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/System/Vector2.hpp>
-#include <SFML/Window/Event.hpp>
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include "signals.h"
 
 /*
- * signals [0-7]:
+ * Game Signals [0-7]:
  *   - fullscreen;   0b00000001
  *   - visible;      0b00000010
  *   - paused;       0b00000100
@@ -34,17 +32,20 @@ public:
     ////////////////////////////////////////
 
     /////////Setters/////////
-    void setSize(int width, int height); void setSize(sf::Vector2u size);
-    void setPosition(int x, int y); void setPosition(sf::Vector2i position);
+    void setSize(int width, int height);
+    void setSize(sf::Vector2u size);
+    void setPosition(int x, int y);
+    void setPosition(sf::Vector2i position);
     void setTitle(std::string title);
     void setSignal(char signals);
+    void setBackground(sf::Color background);
     /////////////////////////
 
     /////////Getters/////////
     sf::Vector2u getSize();
     sf::Vector2i getPosition();
-    std::string getTitle();
-    char getSignals();
+    std::string  getTitle();
+    char         getSignals();
     /////////////////////////
 
     /////////Set Signal Function/////////
@@ -74,13 +75,14 @@ public:
     bool isOpen();
     ////////////////////////////////////
 
+    void reloadWindow();
 private:
     sf::Vector2u m_size;
     sf::Vector2i m_position;
-    std::string m_title;
-    char m_signals;
+    std::string  m_title;
+    char         m_signals;
 
     sf::RenderWindow m_window;
-    sf::Event m_event;
-    sf::Color m_background = sf::Color::Black;
+    sf::Event        m_event;
+    sf::Color        m_background = sf::Color::Black;
 };
