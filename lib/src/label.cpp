@@ -11,7 +11,7 @@ Label::Label()
  {
     m_text.setCharacterSize(m_fontSize);
     m_text.setString(m_textString);
-    m_text.setOrigin(sf::Vector2f(m_size.x/2, m_size.y/2));
+    m_text.setOrigin(sf::Vector2f(m_position.x/2, m_position.y/2)-m_textOffset);
     m_text.setFillColor(m_textColor);
  }
 
@@ -28,7 +28,7 @@ Label::Label(sf::Vector2f position, sf::Vector2f size, std::string name, std::st
     m_text.setFont(m_font);
     m_text.setCharacterSize(m_fontSize);
     m_text.setString(m_textString);
-    m_text.setOrigin(sf::Vector2f(m_size.x/2, m_size.y/2));
+    m_text.setOrigin(sf::Vector2f(m_size.x/2, m_size.y/2) - m_textOffset);
     m_text.setPosition(m_position + m_textOffset);
     m_text.setFillColor(m_textColor);
 }
@@ -63,6 +63,7 @@ void Label::setTextString(std::string textString) {
 
 void Label::setTextOffset(sf::Vector2f textOffset) {
     m_textOffset = textOffset;
+    m_text.setOrigin(sf::Vector2f(m_position.x/2, m_position.y/2)-m_textOffset);
     m_text.setPosition(m_position + m_textOffset);
 }
 
@@ -78,6 +79,7 @@ void Label::setFont(sf::Font font) {
 
 void Label::setText(sf::Text text) {
     m_text = text;
+    m_text.setOrigin(sf::Vector2f(m_position.x/2, m_position.y/2)-m_textOffset);
     m_text.setPosition(m_position + m_textOffset);
     m_fontSize = m_text.getCharacterSize();
     m_textString = m_text.getString();
@@ -149,6 +151,7 @@ bool Label::hasTextStringChangeEvent() {
 void Label::reloadLabel() {
     reloadGameobject();
     m_text.setCharacterSize(m_fontSize);
+    m_text.setOrigin(sf::Vector2f(m_size.x/2, m_size.y/2));
     m_text.setPosition(m_position + m_textOffset);
     m_text.setFillColor(m_textColor);
     m_text.setFont(m_font);
