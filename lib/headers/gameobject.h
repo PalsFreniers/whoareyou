@@ -17,7 +17,7 @@
  *   - Collide Event;   0b00010000
  *   - Draw Event;      0b00100000
  *   - Move Event;      0b01000000
- *   - 
+ *   - Collision;       0b10000000
  */
 
 class Gameobject {
@@ -36,7 +36,9 @@ public:
     void setPosition(sf::Vector2f         position);
     void setSize(sf::Vector2f             size);
     void setRectangle(sf::RectangleShape  collider);
-    void setTexture(sf::Texture           texture);
+    void setTexture(std::string           texture);
+    void setTextureRectangle(sf::IntRect  rect);
+    void setTextureScale(sf::Vector2f     factors);
     void setAnimation(Animation           animation);
     void setSignals(uint16_t              signals);
 
@@ -68,6 +70,7 @@ public:
     void setCollideEvent();
     void setDrawEvent();
     void setMoveEvent();
+    void setHasCollision();
 
     //unset
     void unsetTexture();
@@ -77,6 +80,7 @@ public:
     void unsetCollideEvent();
     void unsetDrawEvent();
     void unsetMoveEvent();
+    void unsetHasCollision();
 
     //has
     bool hasTexture();
@@ -86,6 +90,7 @@ public:
     bool hasCollideEvent();
     bool hasDrawEvent();
     bool hasMoveEvent();
+    bool hasCollision();
 
     void reloadGameobject();
 protected:

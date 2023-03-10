@@ -18,11 +18,12 @@
 #define COLLIDE_EVENT     (1 << 4)
 #define DRAW_EVENT        (1 << 5)
 #define MOVE_EVENT        (1 << 6)
+#define HAS_COLLISION     (1 << 7)
 
 //Labels signals
-#define BACKGROUND        (1 << 7)
-#define TEXT_CHANGE_EVENT (1 << 8)
+#define BACKGROUND        (1 << 8)
+#define TEXT_CHANGE_EVENT (1 << 9)
 
 //buttons signals
-#define ACTIVE            (1 << 9)
-#define ON_CLICK_EVENT    (1 << 10)
+#define ACTIVE            (1 << 10)
+#define ON_CLICK_EVENT    (1 << 11)

@@ -33,10 +33,12 @@ Gameobject::~Gameobject() {
 }
 
 void Gameobject::update() {
+    if(hasAnimation()) m_anim.update();
     if(hasCollideEvent()) onUpdate(*this);
 }
 
 bool Gameobject::checkCollide(Gameobject &other) {
+    if (!hasCollision()) return false;
     if (m_position.x + m_size.x/2 < other.getPosition().x - other.getSize().x/2) return 0;
     if (m_position.x - m_size.x/2 > other.getPosition().x + other.getSize().x/2) return 0;
     if (m_position.y + m_size.y/2 < other.getPosition().y - other.getSize().y/2) return 0;
@@ -86,10 +88,19 @@ void Gameobject::setRectangle(sf::RectangleShape collider) {
     setSize(m_collider.getSize());
 }
 
-void Gameobject::setTexture(sf::Texture texture) {
-    m_texture = texture;
-    m_Sprite.setTexture(texture);
+void Gameobject::setTexture(std::string texture) {
+    m_texture.loadFromFile(texture);
+    m_Sprite.setTexture(m_texture);
+    m_Sprite.setTextureRect(sf::IntRect(0, 0, m_texture.getSize().x, m_texture.getSize().y));
     setTexture();
+}
+
+void Gameobject::setTextureRectangle(sf::IntRect rect) {
+    m_Sprite.setTextureRect(rect);
+}
+
+void Gameobject::setTextureScale(sf::Vector2f factors) {
+    m_Sprite.setScale(factors);
 }
 
 void Gameobject::setAnimation(Animation animation) {
@@ -198,6 +209,10 @@ void Gameobject::setMoveEvent() {
     m_signals |= MOVE_EVENT;
 }
 
+void Gameobject::setHasCollision() {
+    m_signals |= HAS_COLLISION;
+}
+
 void Gameobject::unsetTexture() {
     m_signals &= ~(TEXTURE);
 }
@@ -226,6 +241,10 @@ void Gameobject::unsetMoveEvent() {
     m_signals &= ~(MOVE_EVENT);
 }
 
+void Gameobject::unsetHasCollision() {
+    m_signals &= ~(HAS_COLLISION);
+}
+
 bool Gameobject::hasTexture() {
     return m_signals & TEXTURE;
 }
@@ -252,6 +271,10 @@ bool Gameobject::hasDrawEvent() {
 
 bool Gameobject::hasMoveEvent() {
     return m_signals & MOVE_EVENT;
+}
+
+bool Gameobject::hasCollision() {
+    return m_signals & HAS_COLLISION;
 }
 
 void Gameobject::reloadGameobject() {
