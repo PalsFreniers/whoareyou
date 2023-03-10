@@ -2,11 +2,6 @@
 
 using namespace sf;
 
-
-void Button1OnClick(Button& b) {
-    ;
-}
-
 void Game::init() {
     ;
 }
