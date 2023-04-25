@@ -8,6 +8,7 @@
 
 // sfml library
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 // custom library
 #include "lib/headers/utils.h"

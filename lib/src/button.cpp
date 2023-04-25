@@ -19,6 +19,7 @@ Button::~Button() {
 
 bool Button::tryClickEvent(sf::Vector2f MousePos) {
     Gameobject tmp(MousePos, sf::Vector2f(2, 2), "Mouse Pointer");
+    tmp.setHasCollision();
     if(isActive() && hasClickEvent() && checkCollide(tmp)) {
 	onClick(*this);
 	return true;

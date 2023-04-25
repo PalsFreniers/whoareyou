@@ -97,7 +97,6 @@ void Game::setVisible() {
 
 void Game::setPaused() {
     m_signals |= PAUSED;
-    reloadWindow();
 }
 
 void Game::setClosable() {
@@ -129,7 +128,6 @@ void Game::unsetVisible() {
 
 void Game::unsetPaused() {
     m_signals &= ~(PAUSED);
-    reloadWindow();
 }
 
 void Game::unsetClosable() {

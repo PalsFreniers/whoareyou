@@ -2,7 +2,7 @@ CC=g++
 BUILD=main
 SOURCES=$(wildcard lib/src/*.cpp)
 CXXFLAGS= -O3
-LIBS=-lsfml-graphics -lsfml-window -lsfml-system
+LIBS=-lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
 
 .PHONY: main
 
