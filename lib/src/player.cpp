@@ -4,16 +4,20 @@
 Player::Player()
     : Gameobject()
     , isMoving(false)
-    , m_speed(2.0f)
+    , m_speed(1.0f)
 {
     ;
 }
 
 Player::Player(Vector2f position)
-    : Gameobject(position, Vector2f(), "Player")
+    : Gameobject(position, Vector2f(20, 20), "Player")
     , isMoving(false)
-    , m_speed(2.0f)
+    , m_speed(1.0f)
 {
+    ;
+}
+
+Player::~Player() {
     ;
 }
 
@@ -24,13 +28,20 @@ void Player::move(Vector2f pos) {
 }
 
 void Player::update() {
-    if(m_position == endPoint) isMoving = false;
-    if(isMoving) {
+    if(m_position.x == endPoint.x && m_position.y == endPoint.y) {
+	isMoving = false;
+	m_position.x = endPoint.x;
+	m_position.y = endPoint.y;
+    } else if(isMoving) {
 	if(m_position.x < endPoint.x) m_position.x += m_speed;
-	else if(m_position.x > endPoint.x) m_position.y -= m_speed;
+	else if(m_position.x > endPoint.x) m_position.x -= m_speed;
 	if(m_position.y < endPoint.y) m_position.y += m_speed;
 	else if(m_position.y > endPoint.y) m_position.y -= m_speed;
+	if((m_position.x - endPoint.x <= m_speed && m_position.x - endPoint.x >= -m_speed) || (m_position.x - endPoint.x >= m_speed && m_position.x - endPoint.x <= -m_speed))  m_position.x = endPoint.x;
+	if((m_position.y - endPoint.y <= m_speed && m_position.y - endPoint.y >= -m_speed) || (m_position.y - endPoint.y >= m_speed && m_position.y - endPoint.y <= -m_speed))  m_position.y = endPoint.y;
     }
+    m_collider.setPosition(m_position);
+    if(hasTexture()) m_Sprite.setPosition(m_position);
     if(hasAnimation()) m_anim.update();
     if(hasUpdateEvent()) onUpdate(*this);
 }

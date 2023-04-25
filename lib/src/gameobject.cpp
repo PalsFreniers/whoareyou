@@ -10,8 +10,6 @@ Gameobject::Gameobject()
     , m_anim(0, 1, "placeholder.png", false)
     , m_signals(0)
 {
-    m_collider.setOrigin(sf::Vector2f(m_size.x / 2, m_size.y / 2));
-    m_Sprite.setOrigin(sf::Vector2f(m_size.x / 2, m_size.y / 2));
 }
 
 Gameobject::Gameobject(sf::Vector2f position, sf::Vector2f size, std::string name)
@@ -24,8 +22,8 @@ Gameobject::Gameobject(sf::Vector2f position, sf::Vector2f size, std::string nam
     , m_anim(0, 1, "placeholder.png", false)
     , m_signals(VISIBLE)
 {
-    m_collider.setOrigin(sf::Vector2f(m_size.x / 2, m_size.y / 2));
-    m_Sprite.setOrigin(sf::Vector2f(m_size.x / 2, m_size.y / 2));
+    m_collider.setPosition(m_position);
+    m_Sprite.setPosition(m_position);
 }
 
 Gameobject::~Gameobject() {
@@ -33,16 +31,18 @@ Gameobject::~Gameobject() {
 }
 
 void Gameobject::update() {
+    m_collider.setPosition(m_position);
+    if(hasTexture()) m_Sprite.setPosition(m_position);
     if(hasAnimation()) m_anim.update();
     if(hasCollideEvent()) onUpdate(*this);
 }
 
 bool Gameobject::checkCollide(Gameobject &other) {
     if (!hasCollision()) return false;
-    if (m_position.x + m_size.x/2 < other.getPosition().x - other.getSize().x/2) return 0;
-    if (m_position.x - m_size.x/2 > other.getPosition().x + other.getSize().x/2) return 0;
-    if (m_position.y + m_size.y/2 < other.getPosition().y - other.getSize().y/2) return 0;
-    if (m_position.y - m_size.y/2 > other.getPosition().y + other.getSize().y/2) return 0;
+    if (m_position.x + m_size.x < other.getPosition().x) return 0;
+    if (m_position.x > other.getPosition().x + other.getSize().x) return 0;
+    if (m_position.y + m_size.y < other.getPosition().y) return 0;
+    if (m_position.y > other.getPosition().y + other.getSize().y) return 0;
     if (hasCollideEvent()) onCollide(*this, other);
     return 1;
 }
@@ -83,7 +83,6 @@ void Gameobject::setSize(sf::Vector2f size) {
 
 void Gameobject::setRectangle(sf::RectangleShape collider) {
     m_collider = collider;
-    m_collider.setOrigin(sf::Vector2f(m_position.x/2, m_position.y/2));
     setPosition(m_collider.getPosition());
     setSize(m_collider.getSize());
 }

@@ -12,7 +12,7 @@
 
 //Gameobjects signals
 #define TEXTURE           (1 << 0)
-//efine VISIBLE           (1 << 1)
+//define VISIBLE          (1 << 1)
 #define ANIMATION         (1 << 2)
 #define UPDATE_EVENT      (1 << 3)
 #define COLLIDE_EVENT     (1 << 4)
@@ -27,3 +27,11 @@
 //buttons signals
 #define ACTIVE            (1 << 10)
 #define ON_CLICK_EVENT    (1 << 11)
+
+//sound signals
+#define LOOP              (1 << 0)
+#define MUSIC             (1 << 1)
+#define PLAY_EVENT        (1 << 2)
+#define PAUSE_EVENT       (1 << 3)
+#define STOP_EVENT        (1 << 4)
+#define ADVANCE_EVENT     (1 << 5)

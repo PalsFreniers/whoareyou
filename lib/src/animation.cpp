@@ -25,7 +25,6 @@ Animation::Animation(unsigned short i_animation_speed, unsigned short i_frame_wi
     texture.loadFromFile(i_texture_location);
 
     total_frames = texture.getSize().x / frame_width;
-    sprite.setOrigin(sf::Vector2f((texture.getSize().x / total_frames) / 2, texture.getSize().y / 2));
     if(isLoop) animation_iterator = 1;
 }
 
