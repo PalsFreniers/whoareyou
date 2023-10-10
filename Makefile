@@ -18,4 +18,4 @@ main: main.cpp
 
 debug: main.cpp
 	@echo "build program with debug tools"
-	@$(CC) -g main.cpp $(SOURCES) $(LIBS)
+	@$(CC) -g -ggdb main.cpp $(SOURCES) $(LIBS)

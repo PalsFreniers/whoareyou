@@ -5,6 +5,8 @@
 #include <string>
 #include <functional>
 #include <SFML/Graphics.hpp>
+class Gameobject;
+#include "component.h"
 #include "signals.h"
 #include "animation.h"
 
@@ -41,6 +43,7 @@ public:
     void setTextureScale(sf::Vector2f     factors);
     void setAnimation(Animation           animation);
     void setSignals(uint16_t              signals);
+    void addComponent(Component*          comp);
 
     void setUpdateEvent(std::function<void(Gameobject&)>                    onUpdateEvent);
     void setCollideEvent(std::function<void(Gameobject&, Gameobject&)>      onCollideEvent);
@@ -107,4 +110,6 @@ protected:
     std::function<void(Gameobject&, Gameobject&)>        onCollide;
     std::function<void(Gameobject&, sf::RenderWindow&)>  onDraw;
     std::function<void(Gameobject&, sf::Vector2f)>       onMove;
+
+    std::vector<Component *> m_components;
 };

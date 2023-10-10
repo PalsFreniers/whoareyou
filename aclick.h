@@ -17,6 +17,7 @@
 #include "lib/headers/gameobject.h"
 #include "lib/headers/label.h"
 #include "lib/headers/button.h"
+#include "lib/headers/component.h"
 
 ////Entry point////
 #include "lib/entry.cpp"

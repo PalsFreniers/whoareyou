@@ -34,7 +34,8 @@ void Gameobject::update() {
     m_collider.setPosition(m_position);
     if(hasTexture()) m_Sprite.setPosition(m_position);
     if(hasAnimation()) m_anim.update();
-    if(hasCollideEvent()) onUpdate(*this);
+    if(hasUpdateEvent()) onUpdate(*this);
+    for (Component *cmp : m_components) if(cmp->isActive()) cmp->update(*this);
 }
 
 bool Gameobject::checkCollide(Gameobject &other) {
@@ -55,6 +56,7 @@ void Gameobject::draw(sf::RenderWindow &window) {
     else if(hasTexture()) window.draw(m_Sprite);
     else window.draw(m_collider);
     if(hasDrawEvent()) onDraw(*this, window);
+    for(Component *cmp : m_components) if(cmp->isActive()) cmp->draw(*this, window);
 }
 
 void Gameobject::move(sf::Vector2f vel) {
@@ -178,6 +180,11 @@ std::function<void(Gameobject&, sf::RenderWindow&)> Gameobject::getDrawEvent() {
 
 std::function<void(Gameobject&, sf::Vector2f)> Gameobject::getMoveEvent() {
     return onMove;
+}
+
+void Gameobject::addComponent(Component *comp) {
+    m_components.push_back(comp);
+    comp->onAttach(*this);
 }
 
 void Gameobject::setTexture() {
